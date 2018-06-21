@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>QUnit Example</title>
-    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.6.1.css">
+    <link rel="stylesheet" href="qunit-2.6.1.css">
 </head>
 <body>
 <div id="qunit"></div>
 <div id="qunit-fixture"></div>
-<script src="https://code.jquery.com/qunit/qunit-2.6.1.js"></script>
+<script src="qunit-2.6.1.js"></script>
 <script type="module">
     import lib from "/lib/openxum-core/index.mjs";
     window.OpenXum = lib.OpenXum;
@@ -101,9 +101,10 @@
 
     QUnit.test('verification deplacement', function(assert) {
         let e = new window.OpenXum.LinesOfActions.Engine();
-        let coord = new window.OpenXum.LinesOfActions.Coordinates(1,1);
-        let move = new window.OpenXum.LinesOfActions.Move(e._board[1][1], coord);
-        assert.equal(1,1);
+       let coord = new window.OpenXum.LinesOfActions.Coordinates(1,1);
+       let move = new window.OpenXum.LinesOfActions.Move(e._board[1][1], coord);
+       assert.ok(coord.x() === 1 && coord.y() === 1 , "OK");
+        //assert.equal(1,1);
 
     });
 
