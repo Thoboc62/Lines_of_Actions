@@ -124,6 +124,54 @@
     assert.ok(moves[0].to().y() === coord_dest.y(), "Les coordonnées y sont exactes");
   });
 
+  QUnit.test('deplacement si on peut sauter un allié', function (assert) {
+    let e = new window.OpenXum.LinesOfActions.Engine();
+    e.move(new window.OpenXum.LinesOfActions.Move(e._board[3][0], new window.OpenXum.LinesOfActions.Coordinates(3,6)));
+    let piece = e._board[3][7];
+    let coord_dest = new window.OpenXum.LinesOfActions.Coordinates(3, 5);
+
+    let moves = [];
+    let x_destination = piece.coordinates().x();
+    let y_destination = piece.coordinates().y();
+    let last_y = parseInt(piece.coordinates().y()) - parseInt(e._count_nb_pieces_line(x_destination));
+
+    e._possible_move_list_top(e._board[3][7], moves, x_destination, y_destination, last_y, false);
+
+    assert.ok(moves[0].to().x() === coord_dest.x(), "Les coordonnées x sont exactes");
+    assert.ok(moves[0].to().y() === coord_dest.y(), "Les coordonnées y sont exactes");
+  });
+
+  QUnit.test('aucun deplacement si on tombe sur un allié', function (assert) {
+    let e = new window.OpenXum.LinesOfActions.Engine();
+    e.move(new window.OpenXum.LinesOfActions.Move(e._board[3][0], new window.OpenXum.LinesOfActions.Coordinates(3,5)));
+    let piece = e._board[3][7];
+
+    let moves = [];
+    let x_destination = piece.coordinates().x();
+    let y_destination = piece.coordinates().y();
+    let last_y = parseInt(piece.coordinates().y()) - parseInt(e._count_nb_pieces_line(x_destination));
+
+    e._possible_move_list_top(e._board[3][7], moves, x_destination, y_destination, last_y, false);
+
+    assert.ok(typeof moves[0] === "undefined", "le pion ne peut pas se déplacer dans la direction demandée");
+  });
+
+  QUnit.test('aucun deplacement si un adversaire barre la route', function (assert) {
+    let e = new window.OpenXum.LinesOfActions.Engine();
+    e.move(new window.OpenXum.LinesOfActions.Move(e._board[0][1], new window.OpenXum.LinesOfActions.Coordinates(3,6)));
+    let piece = e._board[3][7];
+    let coord_dest = new window.OpenXum.LinesOfActions.Coordinates(3, 5);
+
+    let moves = [];
+    let x_destination = piece.coordinates().x();
+    let y_destination = piece.coordinates().y();
+    let last_y = parseInt(piece.coordinates().y()) - parseInt(e._count_nb_pieces_line(x_destination));
+
+    e._possible_move_list_top(e._board[3][7], moves, x_destination, y_destination, last_y, false);
+
+    assert.ok(typeof moves[0] === "undefined", "le pion ne peut pas se déplacer dans la direction demandée");
+  });
+
 </script>
 </body>
 </html>
