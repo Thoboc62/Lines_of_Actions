@@ -11,26 +11,27 @@
 <div id="qunit-fixture"></div>
 <script src="qunit-2.6.1.js"></script>
 <script type="module">
-    import lib from "/lib/openxum-core/index.mjs";
-    window.OpenXum = lib.OpenXum;
+  import lib from "/lib/openxum-core/index.mjs";
+
+  window.OpenXum = lib.OpenXum;
 </script>
 <script>
 
-    QUnit.test( "hello test", function( assert ) {
-        assert.ok( 1 == "1", "Passed!" );
-    });
+  QUnit.test("hello test", function (assert) {
+    assert.ok(1 == "1", "Passed!");
+  });
 
-    //TEST DU REMPLISSAGE DE LA GRILLE
+  //TEST DU REMPLISSAGE DE LA GRILLE
 
-    QUnit.test('extremités non occupées', function(assert) {
-        let e = new window.OpenXum.LinesOfActions.Engine();
-        assert.ok(typeof e._board[0][0] === "undefined", "case extremité vide");
-        assert.ok(typeof e._board[0][7] === "undefined", "case extremité vide");
-        assert.ok(typeof e._board[7][0] === "undefined", "case extremité vide");
-        assert.ok(typeof e._board[7][7] === "undefined", "case extremité vide");
-    });
+  QUnit.test('extremités non occupées', function (assert) {
+    let e = new window.OpenXum.LinesOfActions.Engine();
+    assert.ok(typeof e._board[0][0] === "undefined", "case extremité vide");
+    assert.ok(typeof e._board[0][7] === "undefined", "case extremité vide");
+    assert.ok(typeof e._board[7][0] === "undefined", "case extremité vide");
+    assert.ok(typeof e._board[7][7] === "undefined", "case extremité vide");
+  });
 
-    QUnit.test('pions blancs bien placés', function(assert) {
+  QUnit.test('pions blancs bien placés', function (assert) {
     let e = new window.OpenXum.LinesOfActions.Engine();
     assert.equal(e._board[0][1].color(), 1, "pion blanc bien placé");
     assert.equal(e._board[0][2].color(), 1, "pion blanc bien placé");
@@ -44,9 +45,9 @@
     assert.equal(e._board[7][4].color(), 1, "pion blanc bien placé");
     assert.equal(e._board[7][5].color(), 1, "pion blanc bien placé");
     assert.equal(e._board[7][6].color(), 1, "pion blanc bien placé");
-    });
+  });
 
-    QUnit.test('pions noirs bien placés', function(assert) {
+  QUnit.test('pions noirs bien placés', function (assert) {
     let e = new window.OpenXum.LinesOfActions.Engine();
     assert.equal(e._board[1][0].color(), 0, "pion noir bien placé");
     assert.equal(e._board[2][0].color(), 0, "pion noir bien placé");
@@ -61,53 +62,67 @@
     assert.equal(e._board[4][7].color(), 0, "pion noir bien placé");
     assert.equal(e._board[5][7].color(), 0, "pion noir bien placé");
     assert.equal(e._board[6][7].color(), 0, "pion noir bien placé");
-    });
+  });
 
-    QUnit.test('nombre de pions noirs avec comptage sur colonne', function(assert) {
+  QUnit.test('nombre de pions noirs avec comptage sur colonne', function (assert) {
     let e = new window.OpenXum.LinesOfActions.Engine();
     assert.equal(e._count_nb_pieces_column(0), 6, "bon nombre de pions noirs");
     assert.equal(e._count_nb_pieces_column(7), 6, "bon nombre de pions noirs");
 
-    });
+  });
 
 
-    QUnit.test('nombre de pions blancs avec comptage sur ligne', function(assert) {
-        let e = new window.OpenXum.LinesOfActions.Engine();
-        assert.equal(e._count_nb_pieces_line(0), 6, "bon nombre de pions blancs");
-        assert.equal(e._count_nb_pieces_line(7), 6, "bon nombre de pions blancs");
+  QUnit.test('nombre de pions blancs avec comptage sur ligne', function (assert) {
+    let e = new window.OpenXum.LinesOfActions.Engine();
+    assert.equal(e._count_nb_pieces_line(0), 6, "bon nombre de pions blancs");
+    assert.equal(e._count_nb_pieces_line(7), 6, "bon nombre de pions blancs");
 
-    });
+  });
 
-    QUnit.test('nom du jeu', function(assert) {
-        let e = new window.OpenXum.LinesOfActions.Engine();
-        assert.equal(e.get_name(), 'LinesOfActions', "nom correct");
+  QUnit.test('nom du jeu', function (assert) {
+    let e = new window.OpenXum.LinesOfActions.Engine();
+    assert.equal(e.get_name(), 'LinesOfActions', "nom correct");
 
-    });
+  });
 
-    QUnit.test('changement couleur joueur à la fin du tour', function(assert) {
-        let e = new window.OpenXum.LinesOfActions.Engine();
-        let old_color = e.current_color();
-        e._change_color();
-        let new_color = e.current_color();
-        assert.ok(old_color !== new_color, "changement couleur effectué");
+  QUnit.test('changement couleur joueur à la fin du tour', function (assert) {
+    let e = new window.OpenXum.LinesOfActions.Engine();
+    let old_color = e.current_color();
+    e._change_color();
+    let new_color = e.current_color();
+    assert.ok(old_color !== new_color, "changement couleur effectué");
 
-    });
+  });
 
-    QUnit.test('compter pions dans la grille', function(assert) {
-        let e = new window.OpenXum.LinesOfActions.Engine();
-        assert.equal(e._count_nb_pieces_black(), 12, "total pions noirs correct");
-        assert.equal(e._count_nb_pieces_white(), 12, "total pions blancs correct");
-    });
+  QUnit.test('compter pions dans la grille', function (assert) {
+    let e = new window.OpenXum.LinesOfActions.Engine();
+    assert.equal(e._count_nb_pieces_black(), 12, "total pions noirs correct");
+    assert.equal(e._count_nb_pieces_white(), 12, "total pions blancs correct");
+  });
 
-    QUnit.test('verification deplacement', function(assert) {
-        let e = new window.OpenXum.LinesOfActions.Engine();
-       let coord = new window.OpenXum.LinesOfActions.Coordinates(1,1);
-       let move = new window.OpenXum.LinesOfActions.Move(e._board[1][1], coord);
-       assert.ok(coord.x() === 1 && coord.y() === 1 , "OK");
-        //assert.equal(1,1);
+  QUnit.test('verification deplacement', function (assert) {
+    let e = new window.OpenXum.LinesOfActions.Engine();
+    let coord = new window.OpenXum.LinesOfActions.Coordinates(1, 1);
+    let move = new window.OpenXum.LinesOfActions.Move(e._board[0][1], coord);
+    e.move(move);
+    assert.ok(e._board[1][1] !== "undefined", "le pion est bien déplacé");
+  });
 
-    });
+  QUnit.test('deplacement possible sans événement spécial', function (assert) {
+    let e = new window.OpenXum.LinesOfActions.Engine();
+    let piece = e._board[3][7];
+    let coord_dest = new window.OpenXum.LinesOfActions.Coordinates(3, 5);
 
+    let moves = [];
+    let x_destination = piece.coordinates().x();
+    let y_destination = piece.coordinates().y();
+    let last_y = parseInt(piece.coordinates().y()) - parseInt(e._count_nb_pieces_line(x_destination));
+
+    e._possible_move_list_top(e._board[3][7], moves, x_destination, y_destination, last_y, false);
+
+    assert.ok(moves[0].to().x() === coord_dest.x(), "Les coordonnées x sont exactes");
+    assert.ok(moves[0].to().y() === coord_dest.y(), "Les coordonnées y sont exactes");
+  });
 
 </script>
 </body>
