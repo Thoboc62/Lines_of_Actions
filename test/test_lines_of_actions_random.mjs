@@ -1,6 +1,6 @@
 import lib from '../lib/openxum-core/openxum';
 
-for(let i=0; i<50; ++i) {
+for(let i=0; i<100; ++i) {
   let e = new lib.OpenXum.LinesOfActions.Engine(lib.OpenXum.LinesOfActions.GameType.STANDARD, lib.OpenXum.LinesOfActions.Color.BLACK);
   let p1 = new lib.OpenXum.RandomPlayer(lib.OpenXum.LinesOfActions.Color.BLACK, e);
   let p2 = new lib.OpenXum.RandomPlayer(lib.OpenXum.LinesOfActions.Color.WHITE, e);
