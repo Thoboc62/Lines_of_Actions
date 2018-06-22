@@ -15,6 +15,6 @@ while (!e.is_finished()) {
 }
 
 console.log("Winner is " + (e.winner_is() === lib.OpenXum.LinesOfActions.Color.BLACK ? "player 1" : "player 2"));
-for (let index = 0; index < moves.length; ++index) {
+/*for (let index = 0; index < moves.length; ++index) {
   console.log(moves[index].to_string());
-}
+}*/
